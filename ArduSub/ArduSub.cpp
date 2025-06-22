@@ -17,13 +17,15 @@
 
 #include "Sub.h"
 
+// 任务调度宏接受三个参数:func（函数名）,rate_hz（调用频率）,max_time_micros（最大执行时间）
+// SCHED_TASK_CLASS可以指向不同不同类，而SCHED_TASK固定为Sub类中的函数实现
 #define SCHED_TASK(func, rate_hz, max_time_micros) SCHED_TASK_CLASS(Sub, &sub, func, rate_hz, max_time_micros)
 
 /*
   scheduler table for fast CPUs - all regular tasks apart from the fast_loop()
   should be listed here, along with how often they should be called (in hz)
   and the maximum time they are expected to take (in microseconds)
- */
+*/
 const AP_Scheduler::Task Sub::scheduler_tasks[] = {
     SCHED_TASK(fifty_hz_loop,         50,     75),
     SCHED_TASK_CLASS(AP_GPS, &sub.gps, update, 50, 200),
@@ -81,6 +83,7 @@ const AP_Scheduler::Task Sub::scheduler_tasks[] = {
     SCHED_TASK(read_airspeed,          10,    100),
 };
 
+// get the address of scheduler_tasks[] and calculate the quantity of tasks
 void Sub::get_scheduler_tasks(const AP_Scheduler::Task *&tasks,
                                  uint8_t &task_count,
                                  uint32_t &log_bit)
@@ -95,7 +98,7 @@ constexpr int8_t Sub::_failsafe_priorities[5];
 // Main loop - 400hz
 void Sub::fast_loop()
 {
-    // update INS immediately to get current gyro data populated
+    // update INS(惯性导航系统) immediately to get current gyro data populated
     ins.update();
 
     //don't run rate controller in manual or motordetection modes
