@@ -179,6 +179,7 @@ template auto wrap_360_cd<long>(const long angle) -> decltype(wrap_360(angle, 10
 template auto wrap_360_cd<short>(const short angle) -> decltype(wrap_360(angle, 100.f));
 template auto wrap_360_cd<double>(const double angle) -> decltype(wrap_360(angle, 100.f));
 
+// 将任意弧度归一化到(-pi,pi]
 template <typename T>
 float wrap_PI(const T radian)
 {
@@ -194,6 +195,7 @@ template float wrap_PI<short>(const short radian);
 template float wrap_PI<float>(const float radian);
 template float wrap_PI<double>(const double radian);
 
+// 将任意弧度归一化到(0,2pi]
 template <typename T>
 float wrap_2PI(const T radian)
 {

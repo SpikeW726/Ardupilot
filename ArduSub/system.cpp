@@ -187,7 +187,7 @@ void Sub::init_ardupilot()
     logger.setVehicle_Startup_Writer(FUNCTOR_BIND(&sub, &Sub::Log_Write_Vehicle_Startup_Messages, void));
 #endif
 
-    startup_INS_ground();
+    startup_INS_ground(); // 进行地面启动过程中需要的所有惯性传感器校准等工作
 
 #ifdef ENABLE_SCRIPTING
     if (!g2.scripting.init()) {

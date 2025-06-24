@@ -106,7 +106,7 @@ void Sub::fast_loop()
     //don't run rate controller in manual or motordetection modes
     if (control_mode != MANUAL && control_mode != MOTOR_DETECT) {
         // run low level rate controllers that only require IMU data
-        attitude_control.rate_controller_run();
+        attitude_control.rate_controller_run(); // 一个仅接受IMU数据的低速率控制器
     }
 
     // send outputs to the motors library
